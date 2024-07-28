@@ -1,0 +1,91 @@
+.tree-and-grammar--wrapper {
+  display: flex;
+  flex-direction: row;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.tree--wrapper {
+  width: 100%;
+  border: 1px solid var(--tab-border);
+  margin: 0.5rem;
+  height: 400px;
+  position: relative;
+
+  @media only screen and (max-width: 768px) {
+    height: 300px;
+  }
+}
+
+.tree--wrapper p {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.user-input--wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.user-input--wrapper img {
+  width: 0.7rem;
+  filter: invert(8%) sepia(100%) saturate(6954%) hue-rotate(248deg)
+    brightness(99%) contrast(144%);
+}
+
+form input[type="text"] {
+  border: 1px solid var(--output-editor-border);
+  padding: 0.3rem;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[type="text"]:focus {
+  outline: #00000010 0.1rem solid;
+}
+
+#tree {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  display: block;
+
+  @media only screen and (max-width: 768px) {
+    height: 75%;
+  }
+}
+
+#grammar-tree-editor--id {
+  height: 400px;
+
+  @media only screen and (max-width: 768px) {
+    height: 100%;
+  }
+}
+
+#cancel-tree-legend {
+  cursor: pointer;
+}
+
+button {
+  font-size: small;
+  border-radius: 8px;
+  padding: 5px;
+  margin: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.234);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+button:hover {
+  background-color: rgba(131, 131, 131, 0.162);
+}

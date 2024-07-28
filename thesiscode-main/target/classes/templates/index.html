@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analýza vlastností LL gramatík</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/pages/index-styles.css" />
+    <link rel="stylesheet" href="css/editors/input-editor-styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jaldi&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <div id="grammar-notation-legend" class="legend">
+      <div>
+        <h2>Legenda pre textový editor</h2>
+        <span id="cancel-input-main-legend"><img src="images/x.svg" alt=""></span>
+      </div>
+      <p>
+        Notácia pravidiel je: <span class="notation">A -> 'a' b</span>, kde:
+        <ul>
+          <li><strong>A</strong> je neterminál</li>
+          <li><strong>a</strong> je terminál uzatvorený v apostrofoch (alebo dvojitých úvodzovkách) 
+          <li><strong>b</strong> je neterminál</li>
+        </ul>
+      </p>
+      <p>
+        Pomocou escape sekvencií je možné použiť ďalšie znaky: 
+        <ul>
+        <li><strong>grécku abecedu</strong> (\alpha, \beta, \gamma, \epsilon, atď.)</li>
+        </ul>
+      </p>
+      <br>
+      <div>
+        <h2>Legenda pre grafový editor</h2>
+      </div>
+      <p>
+        <ul>
+          <li>Pre pridanie nového potomka, je potrebné <strong>dvakrát kliknúť</strong> na príslušný uzol. Pridaný uzol bez bude symbolu, ktorý je potrebné doplniť.</li>
+          <li>Symbol v uzle je možné zmeniť <strong>podržaním ľavého tlačidla myši</strong> na danom uzle.</li>
+          <li>Strom odvodenia je po spracovaní konvertovaný na produkčné pravidlá. Prevedené pravidlá je možné pozrieť si vo vyššie dostupnom editore.</li>
+        </ul>
+      </p>
+      <p>Po úspešnom spracovaní gramatiky, budú odomknuté karty <strong>Množiny analýzy</strong> a <strong>Strom odvodenia</strong>. </p>
+    </div>
+    <div class="title--wrapper">
+      <div class="title">Analýza LL gramatiky</div>
+      <div id="open-input-main-legend" class="open-main-legend">
+        <span>Pozrieť legendu</span> <img src="images/info-circle.svg" alt="" />
+      </div>
+      <!-- <div id="languages">
+        <div id="slide-sk" class="sk-language">SK</div>
+        <div id="slide-en" class="en-language">EN</div>
+      </div> -->
+    </div>
+    <div class="main--content">
+      <div class="tabs--wrapper">
+        <div class="tabs--inner-wrapper">
+          <div class="tabs">
+            <a th:href="@{/index}" id="first-tab-link">
+              <div id="first-tab" class="active-tab">Vstupná gramatika</div>
+            </a>
+            <a href="/index" id="second-tab-link" class="inactive-tab">
+              <div id="second-tab">Množiny analýzy</div>
+            </a>
+            <a href="/index" id="third-tab-link" class="inactive-tab">
+              <div id="third-tab">Strom odvodenia</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="editor--wrapper">
+        <div class="editor-and-notation--wrapper">
+          <div class="editor--inner-wrapper">
+            <div class="editor--body">
+              <div
+                id="editor--ace-id"
+                class="editor--text"
+                oninput="findCharsToReplace();"
+              ></div>
+              <button class="example-btn" id="editor--btn-example">Príklad</button>
+            </div>
+            <div class="editor--footer">
+              <div class="editor--footer-left">
+                <button class="editor--btn" id="editor--btn-run">Spracovať</button>
+                <button class="editor--btn" id="editor--btn-reset">Reset</button>
+              </div>
+              <div class="editor--footer-right">
+                <div class="editor--console">
+                  <ul class="editor--console-output-animate-out" id="editor--console-output"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grammar-notation">
+            <p>
+              Notácia pravidiel je: <span class="notation">A -> 'a' b</span>, kde:
+              <ul>
+                <li><strong>A</strong> je neterminál</li>
+                <li><strong>a</strong> je terminál uzatvorený v apostrofoch (alebo dvojitých úvodzovkách) 
+                <li><strong>b</strong> je neterminál</li>
+              </ul>
+            </p>
+            <br>
+            <p>
+              Pomocou escape sekvencií je možné použiť ďalšie znaky: 
+              <ul>
+                <li><strong>grécku abecedu</strong> (\alpha, \beta, \gamma, \epsilon, atď.)</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+        <div class="editor-and-notation--wrapper">
+          <div class="input-tree--wrapper">
+            <div class="input-tree--inner-wrapper">
+              <div id="input-tree"></div>
+              <button class="example-btn" id="tree--btn-example">Príklad</button>
+            </div>
+            <div class="editor--footer">
+              <div class="editor--footer-left">
+                <button class="editor--btn" id="tree--btn-run">Spracovať</button>
+                <button class="editor--btn" id="tree--btn-reset">Reset</button>
+              </div>
+              <div class="editor--footer-right">
+                <div class="editor--console">
+                  <ul class="editor--console-output-animate-out" id="tree--console-output"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tree-notation">
+            <p>
+              <ul>
+                <li>Pre pridanie nového potomka, je potrebné <strong>dvakrát kliknúť</strong> na príslušný uzol. Pridaný uzol bez bude symbolu, ktorý je potrebné doplniť.</li>
+                <br>
+                <li>Symbol v uzle je možné zmeniť podržaním <strong>ľavého tlačidla myši</strong> na danom uzle.</li>
+              </ul>
+            </p>
+          </div>
+      </div>
+      </div>
+      <div class="copyright-div">Vladimír Rusnák © 2024</div>
+    </div>
+
+     <!-- Cytoscape library  -->
+    <script src="/javascript/cytoscape/cytoscape.js"></script>
+    <script src="/javascript/cytoscape/cytoscape.min.js"></script>
+
+    <!-- Ace Libraries -->
+    <script src="/javascript/ace-editor/src-min/ace.js"></script>
+    <script src="/javascript/ace-editor/src-min/mode-javascript.js"></script>
+    <script src="/javascript/ace-editor/src-min/ext-language_tools.js"></script>
+
+    <!-- My code -->
+    <script src="/javascript/input-ace-editor.js"></script>
+    <script src="/javascript/input-tree-editor.js"></script>
+    <script src="/javascript/page.js"></script>
+  </body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analýza vlastností LL gramatík</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/pages/analysis-styles.css" />
+    <link rel="stylesheet" href="/css/editors/input-editor-styles.css" />
+    <link rel="stylesheet" href="/css/editors/analysis-editor-styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jaldi&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+<div id="overlay"></div>
+    <div id="alphabet-legend" class="legend">
+      <div>
+        <h2>Abeceda gramatiky</h2>
+        <span id="cancel-alphabet-legend"><img src="images/x.svg" alt=""></span>
+      </div>
+      <p>
+        <ul>
+          <li><strong>Terminálne symboly</strong> gramatiky sú symboly, ktoré sa objavia na konci odvodenia (po použití produkčných pravidiel) a ktoré nemožno prepísať ďalšími pravidlami.</li>
+          <li><strong>Neterminálne symboly</strong> gramatiky sú symboly, ktoré sú nahradené terminálnymi symbolmi použitím produkčných pravidiel.</li>
+        </ul>
+      </p>
+      <p>
+        Neterminály v bezkontextovej gramatike nájdeme na ľavej strane každého pravidla. Terminály sú všetky ostatné symboly, ktoré sme na ľavej strane nenašli. 
+      </p>
+    </div>
+
+    <div id="first-legend" class="legend">
+      <div>
+        <h2>Množina FIRST</h2>
+        <span id="cancel-first-legend"><img src="images/x.svg" alt=""></span>
+      </div>
+      <p>
+        <ol>
+          <li>Ak a je terminálny symbol, potom FIRST(a) = {a}</li>
+          <li>Ak A → ε, potom pridaj ε do FIRST(A)</li>
+          <li>Majme pravidlo <strong>A → B<sub>1</sub> B<sub>2</sub> B<sub>3</sub> ... B<sub>n</sub></strong>
+            <ul>
+              <li>FIRST(A) = FIRST(B<sub>1</sub>)</li>
+              <li>Ak FIRST(B<sub>1</sub>) obsahuje ε, potom FIRST(A) = {FIRST(B<sub>1</sub>) - ε} U FIRST(B<sub>2</sub>)</li>
+              <li>Ak všetky množiny, B<sub>1</sub> až B<sub>n</sub>, obsahujú ε, potom pridaj ε do FIRST(A)</li>
+            </ul>
+          </li>
+        </ol>
+      </p>
+    </div>
+
+    <div id="follow-legend" class="legend">
+      <div>
+        <h2>Množina FOLLOW</h2>
+        <span id="cancel-follow-legend"><img src="images/x.svg" alt=""></span>
+      </div>
+      <p>
+        <ol>
+          <li>Ak S je <strong>počiatočný symbol</strong> gramatiky, potom do FOLLOW(S) pridaj <strong>$</strong></li>
+          <li>Ak máme pravidlo <strong>A → αB</strong>, potom do FOLLOW(B) pridaj FOLLOW(A)</li>
+          <li>Majme pravidlo <strong>A → αBβ</strong>
+            <ul>
+              <li>Ak FIRST(β) neobsahuje ε, potom do FOLLOW(B) pridaj FIRST(β)</li>
+              <li>Ak FIRST(β) obsahuje ε, potom do FOLLOW(B) pridaj { FIRST(β) - ε } U FOLLOW(A)</li>
+            </ul>
+          </li>
+        </ol>
+      </p>
+    </div>
+
+    <div id="predict-legend" class="legend">
+      <div>
+        <h2>Množina PREDICT</h2>
+        <span id="cancel-predict-legend"><img src="images/x.svg" alt=""></span>
+      </div>
+      <p>
+        Ak máme pravidlo <strong>A → α</strong>
+        <ul>
+            <li>PREDICT(A → α) = FIRST(α), ak ε nepatrí do FIRST(α)</li>
+            <li>PREDICT(A → α) = (FIRST(α) - {ε})  U FOLLOW(A), ak ε patrí do FIRST(α)</li>
+        </ul>
+      </p>
+    </div>
+
+    <div id="table-legend" class="legend">
+      <div>
+        <h2>Rozkladová tabuľka</h2>
+        <span id="cancel-table-legend"><img src="images/x.svg" alt=""></span>
+      </div>
+      <p>
+        <ul>
+          <li><strong>Rozkladová tabuľka</strong> syntaktického analyzátora LL(1) jazyka je zobrazenie, ktoré opisuje, aké pravidlo je potrebné použiť pre expanziu neterminálu, ktorý sa nachádza na vrchu zásobníka analyzátora, ak na vstupe je daný terminál.</li>
+          <li>Ide o spravidla o <strong>neúplné zobrazenie</strong>, keďže v tabuľke sa nachádzajú prázdne položky. </li>
+          <li><strong>Gramatika LL(1)</strong> je gramatika, pre ktorej jazyk vieme zostrojiť rozkladovú tabuľku, kde v každej položke zavedieme najviac jedno pravidlo.</li>
+        </ul>
+      </p>
+    </div>
+
+    <div id="transform-legend" class="legend">
+      <div>
+        <h2>Transformácia gramatiky</h2>
+        <span id="cancel-transform-legend"><img src="images/x.svg" alt=""></span>
+      </div>
+      <p>
+        Nižšie je dostupná vizualizácia jednotlivých <strong>transformácií</strong>. 
+      </p>
+      <p>
+        Na vašej gramatike bolo vykonané:
+        <ol>
+          <li>Odstránenie spoločných predpôn</li>
+        </ol>
+      </p>
+    </div>
+
+    <div class="title--wrapper">
+      <div class="title">Analýza LL gramatiky</div>
+      <!-- <div id="languages">
+        <div id="slide-sk" class="sk-language">SK</div>
+        <div id="slide-en" class="en-language">EN</div>
+      </div> -->
+    </div>
+    <div class="main--content">
+      <div class="tabs--wrapper">
+        <div class="tabs--inner-wrapper">
+          <div class="tabs">
+            <a th:href="@{/index}" id="first-tab-link">
+              <div id="first-tab" class="inactive-tab">Vstupná gramatika</div>
+            </a>
+            <a th:href="@{/analysis}" id="second-tab-link">
+              <div id="second-tab" class="active-tab">Množiny analýzy</div>
+            </a>
+            <a th:href="@{/tree}" id="third-tab-link">
+              <div id="third-tab" class="inactive-tab">Strom odvodenia</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="content--inner-wrapper">
+        <div class="grammar-and-alphabet-wrapper">
+          <div>
+            <h2>Pravidlá gramatiky</h2>
+            <div class="output-editor">
+              <div class="output-editor--first-row-wrapper">
+                <div class="output-editor--body">
+                  <div
+                    class="output-editor--text"
+                    id="grammar-editor--id"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="title-and-legend">
+              <h2>Abeceda gramatiky</h2>
+              <div id="open-alphabet-legend" class="open-legend">
+                <img src="images/info-circle.svg" alt="" />
+              </div>
+            </div>
+            <div class="output-editor">
+              <div class="output-editor--first-row-wrapper">
+                <div class="output-editor--body">
+                  <div
+                    class="output-editor--text"
+                    id="alphabet-editor--id"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="set-wrapper">
+          <div>
+            <div class="title-and-legend">
+              <h2>Množiny First</h2>
+              <div id="open-first-legend" class="open-legend">
+                <img src="images/info-circle.svg" alt="" />
+              </div>
+            </div>
+            <div class="output-editor">
+              <div class="output-editor--second-row-wrapper">
+                <div class="output-editor--body">
+                  <div class="output-editor--text" id="first-editor--id"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="title-and-legend">
+              <h2>Množiny Follow</h2>
+              <div id="open-follow-legend" class="open-legend">
+                <img src="images/info-circle.svg" alt="" />
+              </div>
+            </div>
+            <div class="output-editor">
+              <div class="output-editor--second-row-wrapper">
+                <div class="output-editor--body">
+                  <div class="output-editor--text" id="follow-editor--id"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="title-and-legend">
+              <h2>Množiny Predict</h2>
+              <div id="open-predict-legend" class="open-legend">
+                <img src="images/info-circle.svg" alt="" />
+              </div>
+            </div>
+            <div class="output-editor">
+              <div class="output-editor--second-row-wrapper">
+                <div class="output-editor--body">
+                  <div
+                    class="output-editor--text"
+                    id="predict-editor--id"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="table-and-text-wrapper">
+          <div class="table-and-title-wrapper">
+            <div>
+              <div class="title-and-legend">
+                <h2>Rozkladová tabuľka</h2>
+                <div id="open-table-legend" class="open-legend">
+                  <img src="images/info-circle.svg" alt="" />
+                </div>
+              </div>
+              <div class="table-wrapper">
+                  <div id="table"></div>
+              </div>
+            </div>
+          </div>
+          <div class="text-wrapper">
+            <div class="is-grammar-ll">
+              <div>Vaša gramatika <strong>nie je gramatikou LL(1)</strong></div>
+              <img src="images/x.svg" alt="">
+            </div>
+              <p>V rozkladovej tabuľke boli nájdené konflikty.</p>
+            <p>
+              Môžete využiť transformáciu, ktorá sa pokúsi upraviť gramatiku
+              tak, aby nedošlo ku konfliktom v rozkladovej tabuľke.
+          </p>
+            <p>
+              Operácie, ktoré transformácia využíva: 
+              <ul>
+              <li>odstránenie epsilonových pravidiel</li> 
+              <li>odstránenie ľavej rekurzie</li>
+              <li>odstránenie nadbytočných pravidiel a cyklov</li>
+              <li>odstránenie spoločných predpôn</li>
+              </ul>
+            </p>
+            <button class="transform">Transformovať</button>
+          </div>
+        </div>
+      </div>
+      <div class="copyright-div">Vladimír Rusnák © 2024</div>
+    </div>
+
+
+    <!-- Ace Libraries -->
+    <script src="/javascript/ace-editor/src-min/ace.js"></script>
+    <script src="/javascript/ace-editor/src-min/mode-javascript.js"></script>
+    <script src="/javascript/ace-editor/src-min/ext-language_tools.js"></script>
+
+    <!-- My Code -->
+    <script src="/javascript/analysis-editor.js"></script>
+    <script src="/javascript/page.js"></script>
+
+  </body>
+</html>

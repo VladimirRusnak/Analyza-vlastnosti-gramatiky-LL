@@ -1,0 +1,203 @@
+.grammar-and-alphabet-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #00000020;
+  padding-bottom: 1rem;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  @media only screen and (max-width: 320px) {
+    margin-top: 0.5rem;
+  }
+}
+
+.set-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  border-bottom: 1px solid #00000020;
+  padding: 1rem 0;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    padding: 0.5rem 0;
+  }
+}
+
+.table-and-title-wrapper {
+  padding: 1rem 0 0 0;
+}
+
+.table-and-title-wrapper {
+  width: 50%;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.table-wrapper {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--tab-border);
+  padding: 2rem;
+  margin: 0.5rem;
+  background: white;
+
+  @media only screen and (max-width: 768px) {
+    margin: auto;
+    height: 100%;
+  }
+}
+
+.table-and-text-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    padding: 0.5rem 0;
+  }
+}
+
+.text-wrapper {
+  text-align: left;
+  font-size: medium;
+  width: 50%;
+  padding: 2rem 3rem;
+  font-size: 0.9rem;
+
+  @media only screen and (max-width: 768px) {
+    padding: 1rem;
+    width: 100%;
+    font-size: 1.1rem;
+  }
+
+  @media only screen and (max-width: 320px) {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+}
+
+.table-wrapper table {
+  height: 100%;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-wrapper table tr.first-row {
+  height: 2rem;
+}
+
+.table-wrapper table tr {
+  height: 3rem;
+}
+
+td,
+th {
+  border-bottom: 1px solid var(--tab-border);
+  border-right: 1px solid var(--tab-border);
+  padding: 0 0.8rem;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.table-non-terminals,
+.table-terminals {
+  font-weight: bold;
+}
+
+.text-wrapper p,
+.text-wrapper ul {
+  width: 80%;
+  margin: auto;
+  line-height: 1.2rem;
+  padding: 0.3rem 0 0.3rem 0.3rem;
+
+  @media only screen and (max-width: 768px) {
+    padding: 0.2rem;
+  }
+}
+
+.text-wrapper ul li {
+  margin-left: 30px;
+  list-style-type: circle;
+}
+
+.text-wrapper img {
+  width: 20px;
+  filter: invert(13%) sepia(93%) saturate(7287%) hue-rotate(3deg)
+    brightness(115%) contrast(114%);
+}
+
+.text-wrapper button {
+  padding: 5px 10px;
+  background-color: #f0eded;
+  border: 1px solid #00000050;
+  display: block;
+  margin: 10px auto;
+}
+
+.text-wrapper button:hover {
+  transition: background-color ease-in 0.1s;
+  background-color: #dfdfdf;
+  cursor: pointer;
+}
+
+.is-grammar-ll {
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  @media only screen and (max-width: 768px) {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+  @media only screen and (max-width: 320px) {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+}
+
+.conflict {
+  color: red;
+  font-size: 1.2rem;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+.not-conflict {
+  color: green;
+  font-size: 1.2rem;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+img.green-image {
+  filter: invert(22%) sepia(91%) saturate(6050%) hue-rotate(154deg)
+    brightness(103%) contrast(101%);
+  width: 20px;
+}
+
+#cancel-alphabet-legend,
+#cancel-table-legend,
+#cancel-transform-legend,
+#cancel-first-legend,
+#cancel-follow-legend,
+#cancel-predict-legend {
+  cursor: pointer;
+}

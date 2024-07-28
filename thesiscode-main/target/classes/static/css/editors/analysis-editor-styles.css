@@ -1,0 +1,73 @@
+:root {
+  --output-editor-background: #fafafa;
+  --output-editor-border: #00000040;
+  --output-editor-btn-border: #a5a5a5;
+
+  --output-editor-first-row-width: 400px;
+  --output-editor-first-row-height: 200px;
+
+  --output-editor-second-row-width: 250px;
+  --output-editor-second-row-height: 200px;
+
+  --output-editor-grammar-width: 250px;
+}
+
+.output-editor {
+  width: 100%;
+}
+
+.output-editor--first-row-wrapper {
+  width: var(--output-editor-first-row-width);
+  height: var(--output-editor-first-row-height);
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.output-editor--second-row-wrapper {
+  width: var(--output-editor-second-row-width);
+  height: var(--output-editor-second-row-height);
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  } 
+}
+
+.output-editor--body {
+  flex: 1;
+}
+
+.output-editor--text {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  border: 1px solid var(--output-editor-border);
+}
+
+.ace_cursor {
+  opacity: 0 !important;
+}
+
+.transition-gutter {
+  transition: background-color 0.2s ease-in-out; /* Adjust the duration and easing function as needed */
+}
+
+.brackets {
+  color: red;
+}
+
+.output-editor--grammar {
+  width: var(--output-editor-grammar-width);
+  height: var(--output-editor-first-row-height);
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem;
+}

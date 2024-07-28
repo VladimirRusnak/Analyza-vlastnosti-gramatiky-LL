@@ -1,0 +1,102 @@
+.success {
+  color: green;
+  font-weight: bold;
+}
+
+.notation {
+  font-size: 14px;
+  color: gray;
+  font-weight: bold;
+}
+
+.input-tree--wrapper {
+  margin-top: 50px;
+  width: var(--code-editor-width);
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (max-width: 768px) {
+    width: 90%;
+  }
+}
+
+.input-tree--inner-wrapper {
+  height: 400px;
+  border: 1px solid var(--tab-border);
+  position: relative;
+
+  @media only screen and (max-width: 768px) {
+    height: 300px;
+  }
+}
+
+#input-tree {
+  margin: auto;
+  height: var(--code-editor-height);
+  display: block;
+
+  @media only screen and (max-width: 768px) {
+    height: 75%;
+  }
+}
+
+.grammar-notation,
+.tree-notation {
+  margin-left: 40px;
+  font-size: 13px;
+  width: 20%;
+  line-height: 1.3em;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.grammar-notation {
+  margin-top: 10px;
+}
+
+.tree-notation {
+  margin-top: 65px;
+}
+
+.grammar-notation ul,
+.tree-notation ul {
+  margin-left: 25px;
+}
+
+.example-btn {
+  font-size: 13px;
+  border-radius: 8px;
+  padding: 5px;
+  margin: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.234);
+  position: absolute;
+  right: -150px;
+  animation: none;
+
+  @media only screen and (max-width: 768px) {
+    padding: 2px;
+    right: -46px;
+  }
+}
+
+.example-btn:hover {
+  background-color: rgba(131, 131, 131, 0.162);
+}
+
+#tree--btn-example {
+  bottom: 150px;
+  @media only screen and (max-width: 768px) {
+    top: 0px;
+    height: 10%;
+  }
+}
+
+#editor--btn-example {
+  bottom: 10px;
+  @media only screen and (max-width: 768px) {
+    top: 0px;
+    height: 10%;
+  }
+}

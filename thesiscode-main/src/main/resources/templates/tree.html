@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analýza vlastností LL gramatík</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/editors/input-editor-styles.css" />
+    <link rel="stylesheet" href="/css/editors/analysis-editor-styles.css" />
+    <link rel="stylesheet" href="/css/pages/tree-styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jaldi&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="overlay"></div>
+    <div id="tree-legend" class="legend">
+      <div>
+        <h2>Konštrukcia stromu odvodenia</h2>
+        <span id="cancel-tree-legend"><img src="images/x.svg" alt=""></span>
+      </div>
+      <p>
+        V uvedenej sekcii je možné zadať vstupné slovo, z ktorého bude skonštruovaný strom odvodenia.
+        <ul>
+          <li>Nad stromom je správa, ktorá signalizuje či bolo pre dané vstupné slovo možné skonštruovať derivačný strom.</li>
+          <li>Terminály sú <strong>označené hrubým písmom</strong>.</li>
+          <li>Terminály, ktoré boli akceptované, sú <strong>označené zelenou</strong>.</li>
+          <li>Znak (terminál aj neterminál), ktorý je potrebný pre konštrukciu stromu, no zatiaľ nebol akceptovaný, je <strong>zvýraznený červenou</strong>.</li>
+        </ul>
+      </p>
+    </div>
+
+    <div class="title--wrapper">
+      <div class="title">Analýza LL gramatiky</div>
+      <div id="open-tree-legend" class ="open-main-legend">
+          <span>Pozrieť legendu</span> <img src="images/info-circle.svg" alt="" />
+      </div>
+      <!-- <div id="languages">
+        <div id="slide-sk" class="sk-language">SK</div>
+        <div id="slide-en" class="en-language">EN</div>
+      </div> -->
+    </div>
+    <div class="main--content">
+      <div class="tabs--wrapper">
+        <div class="tabs--inner-wrapper">
+        <div class="tabs">
+          <a th:href="@{/index}" id="first-tab-link" class="inactive-tab">
+            <div id="first-tab">Vstupná gramatika</div>
+          </a>
+          <a th:href="@{/analysis}" id="second-tab-link" class="inactive-tab">
+            <div id="second-tab">Množiny analýzy</div>
+          </a>
+          <a th:href="@{/tree}" id="third-tab-link">
+            <div id="third-tab" class="active-tab">Strom odvodenia</div>
+          </a>
+        </div>
+        </div>
+      </div>
+
+      <div class="content--inner-wrapper">
+        <div class="user-input--wrapper">
+          <div>
+            <form action="" id="input_form">
+              <label for="input_word">Slovo na vstupe</label>
+              <input type="text" id="input_word" name="input_word">
+            </form>
+          </div>
+        </div>
+        <div class="tree-and-grammar--wrapper">
+          <div class="tree--wrapper">
+            <p id="tree-message"></strong></p>
+            <div id="tree"></div>
+            <button onlick="exportNetwork()">Exportovať ako PNG</button>
+          </div>
+          <div class="grammar--wrapper">
+            <div class="output-editor">
+              <div class="output-editor--grammar">
+                <div class="output-editor--body">
+                  <div
+                    class="output-editor--text"
+                    id="grammar-tree-editor--id"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyright-div">Vladimír Rusnák © 2024</div>
+    </div>
+    
+    <!-- Cytoscape library  -->
+    <script src="/javascript/cytoscape/cytoscape.js"></script>
+    <script src="/javascript/cytoscape/cytoscape.min.js"></script>
+
+    <!-- Ace Libraries -->
+    <script src="/javascript/ace-editor/src-min/ace.js"></script>
+    <script src="/javascript/ace-editor/src-min/mode-javascript.js"></script>
+    <script src="/javascript/ace-editor/src-min/ext-language_tools.js"></script>
+
+    <!-- My Code -->
+    <script src="/javascript/tree-editor.js"></script>
+    <script src="/javascript/page.js"></script>
+  </body>
+</html>
